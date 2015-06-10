@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<cpXmlCmd xmlns="http://www.XmlCommandLine.org/cpXmlCmd/1.0"><Context><Environment><args>d:\XmlCommandLine\cpXmlCmd\dist\Debug\MinGW-Windows\cpXmlCmd.exe -l tmp/outputdocument.xml tmp/FilesToCopy.xml</args><User></User><Host></Host></Environment><cp Source="one.file" Destination="two.file" Start/><Notes>cpXmlCmd: copied: 1, failed: 0</Notes><Status success="true" Start Finish/></Context></cpXmlCmd>

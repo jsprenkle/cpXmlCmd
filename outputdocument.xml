@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<cpXmlCmd xmlns="http://www.XmlCommandLine.org/cpXmlCmd/1.0"><Context><Environment><args>dist\release\MinGW-Windows\cpXmlCmd.exe -l outputdocument.xml one.file \\svd0bizt01\shared folder\x\y\z\two.file</args><User>dsprenkle</User><Host>HOW007406</Host></Environment><cp Source="one.file" Destination="\\svd0bizt01\shared folder\x\y\z\two.file" Start="2015-06-10T15:45:26Z"/><Notes>cpXmlCmd: copied: 1, failed: 4521135</Notes><Status success="true" Start="2015-06-10T15:45:26Z" Finish="2015-06-10T15:45:26Z"/></Context></cpXmlCmd>
