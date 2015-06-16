@@ -25,8 +25,25 @@ public:
    cpXmlCmdApplication( const char* ResultDocumentFileName, int argc, char** argv );
    virtual ~cpXmlCmdApplication();
 
+   /**
+    * initialize counters and output document prior to any copy operations
+    */
+   void initialize();
+   
    bool process( const char* filename );
+   
+   /**
+    * Copy a file
+    * @param source
+    * @param destination
+    * @return 
+    */
    bool copy( const char* source, const char* destination );
+   
+   /**
+    * ensure the destination directory exists
+    * @param destination
+    */
    void validate( const char* destination );
    
    bool status;

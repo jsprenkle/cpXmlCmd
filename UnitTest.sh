@@ -34,7 +34,7 @@ rm two.file 2>one.file
 cat >$MYTMPDIR/FilesToCopy.xml <<xyzzy
 <ns:cpXmlCmd xmlns:ns="http://www.XmlCommandLine.org/cpXmlCmd/1.0">
     <ns:Content>
-        <ns:cp source="one.file" destination="two.file" />
+        <ns:cp Source="one.file" Destination="two.file" />
     </ns:Content>
 </ns:cpXmlCmd>
 xyzzy
@@ -107,7 +107,7 @@ rm $MYTMPDIR/x/y/z/two.file 2>one.file
 cat >$MYTMPDIR/FilesToCopy.xml <<xyzzy2
 <ns:cpXmlCmd xmlns:ns="http://www.XmlCommandLine.org/cpXmlCmd/1.0">
     <ns:Content>
-        <ns:cp source="one.file" destination="$MYTMPDIR/x/y/z/two.file" />
+        <ns:cp Source="one.file" Destination="$MYTMPDIR/x/y/z/two.file" />
     </ns:Content>
 </ns:cpXmlCmd>
 xyzzy2

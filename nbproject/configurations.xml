@@ -31,7 +31,10 @@
       <itemPath>LICENSE</itemPath>
       <itemPath>Makefile</itemPath>
       <itemPath>README.md</itemPath>
+      <itemPath>UnitTest.bat</itemPath>
       <itemPath>UnitTest.sh</itemPath>
+      <itemPath>cpXmlCmdLogSchema.xsd</itemPath>
+      <itemPath>cpXmlCmdSchema.xsd</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

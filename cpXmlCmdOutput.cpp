@@ -24,11 +24,7 @@ cpXmlCmdOutput::cpXmlCmdOutput( const char* ResultDocumentFileName )
       throw ::std::runtime_error( "Error starting the output document" );
 
    // Start root element
-   if ( xmlTextWriterStartElementNS( writer, NULL, (xmlChar *) "cpXmlCmd", cpXmlCmdNamespace ) < 0 )
-      throw ::std::runtime_error( "Error writing to the output document" );
-
-   // Start Context element
-   if ( xmlTextWriterStartElement( writer, (xmlChar *) "Context" ) < 0 )
+   if ( xmlTextWriterStartElementNS( writer, NULL, (xmlChar *) "cpXmlCmdLog", cpXmlCmdNamespace ) < 0 )
       throw ::std::runtime_error( "Error writing to the output document" );
 }
 
@@ -39,12 +35,16 @@ cpXmlCmdOutput::~cpXmlCmdOutput()
      * which will do all the work */
     if ( xmlTextWriterEndDocument( writer ) < 0 )
        throw ::std::runtime_error( "Error ending to the output document" );
-   
+
     xmlFreeTextWriter( writer );
 }
 
-void cpXmlCmdOutput::Environment( const ::std::string& args, const ::std::string& User, const ::std::string& Host )
+void cpXmlCmdOutput::Context( const ::std::string& args, const ::std::string& User, const ::std::string& Host )
 {
+   // Start Context element
+   if ( xmlTextWriterStartElement( writer, (xmlChar *) "Context" ) < 0 )
+      throw ::std::runtime_error( "Error writing to the output document" );
+
    if ( xmlTextWriterStartElement( writer, (xmlChar *) "Environment" ) < 0 )
       throw ::std::runtime_error( "Error writing to the output document" );
    
@@ -66,7 +66,24 @@ void cpXmlCmdOutput::Environment( const ::std::string& args, const ::std::string
       throw ::std::runtime_error( "Error writing to the output document" );
    if ( tmp != NULL )
       xmlFree( tmp );
-   
+
+   // </Environment>
+   xmlTextWriterEndElement( writer );
+
+   // </Context>
+   xmlTextWriterEndElement( writer );
+}
+
+void cpXmlCmdOutput::StartContent()
+{
+   // Start Content element
+   if ( xmlTextWriterStartElement( writer, (xmlChar *) "Content" ) < 0 )
+      throw ::std::runtime_error( "Error writing to the output document" );
+}
+
+void cpXmlCmdOutput::FinishContent()
+{
+   // </Content>
    xmlTextWriterEndElement( writer );
 }
 
@@ -183,7 +200,7 @@ xmlChar* cpXmlCmdOutput::ConvertInput( const xmlChar* in, const xmlChar* encodin
       else
       {
          out = (xmlChar *) xmlRealloc( out, out_size + 1 );
-         out[out_size] = 0; /*null terminating out */
+         out[out_size] = 0; //null termination
       }
    }
    else
@@ -193,3 +210,4 @@ xmlChar* cpXmlCmdOutput::ConvertInput( const xmlChar* in, const xmlChar* encodin
 
    return out;
 }
+

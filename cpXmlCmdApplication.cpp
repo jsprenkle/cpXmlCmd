@@ -45,7 +45,9 @@ cpXmlCmdApplication::cpXmlCmdApplication( const char* ResultDocumentFileName, in
          args.append( argv[i] );
          separator = " ";
       }
-      output->Environment( args, UserName(), HostName() );
+      
+      // create context area
+      output->Context( args, UserName(), HostName() );
    }
 }
 
@@ -67,14 +69,22 @@ cpXmlCmdApplication::~cpXmlCmdApplication()
 
       output->Status( status, start, finish );
       
+      output->FinishContent();
       delete output;
    }
 }
-   
-bool cpXmlCmdApplication::process( const char* filename )
+
+void cpXmlCmdApplication::initialize()
 {
    copied = 0;
    failed = 0;
+   
+   // begin content node
+   output->StartContent();
+}
+
+bool cpXmlCmdApplication::process( const char* filename )
+{
    bool result = true;
    try
    {
@@ -174,10 +184,10 @@ void cpXmlCmdApplication::processNode( xmlTextReaderPtr readerptr )
       {
          if ( strcmp( (const char*) ns, cpXmlCmdNamespace ) == 0 )
          {
-            xmlChar* source = xmlTextReaderGetAttribute( readerptr, (const unsigned char*) "source" );
+            xmlChar* source = xmlTextReaderGetAttribute( readerptr, (const unsigned char*) "Source" );
             if ( source )
             {
-               xmlChar* destination = xmlTextReaderGetAttribute( readerptr, (const unsigned char*) "destination" );
+               xmlChar* destination = xmlTextReaderGetAttribute( readerptr, (const unsigned char*) "Destination" );
                if ( destination )
                {
                   validate( (const char*) destination );
@@ -197,7 +207,6 @@ void cpXmlCmdApplication::processNode( xmlTextReaderPtr readerptr )
 
 void cpXmlCmdApplication::validate( const char* destination )
 {
-   // ensure the destination directory exists
    ::std::string PathAndFileName( (const char*) destination );
    // if no path
    size_t off = PathAndFileName.find_last_of( "/\\" );
@@ -232,6 +241,9 @@ bool cpXmlCmdApplication::copy( const char* source, const char* destination )
          while ( ( size = read( srcfd, buf, BUFSIZ ) ) > 0 )
             write( destfd, buf, size );
          close( destfd );
+   
+         ++copied;
+         result = true;
       }
       else
       {
@@ -257,9 +269,6 @@ bool cpXmlCmdApplication::copy( const char* source, const char* destination )
       ++failed;
       result = false;
    }
-   
-   ++copied;
-   result = true;
    
    if ( output )
       output->cp( source, destination, start );

@@ -101,7 +101,9 @@ int main( int argc, char** argv )
       if ( ! InputFileName.empty() && ! OutputFileName.empty() )
       {
          const char* destination = OutputFileName.c_str();
-         
+
+         app.initialize();
+        
          app.validate( destination );
 
          if ( app.copy( InputFileName.c_str(), destination) )
@@ -109,6 +111,7 @@ int main( int argc, char** argv )
       }
       else
       {
+         app.initialize();
          if ( app.process( InputFileName.c_str() ) )
             rc = 0;
       }

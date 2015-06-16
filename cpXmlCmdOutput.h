@@ -24,8 +24,15 @@ public:
    cpXmlCmdOutput( const char* ResultDocumentFileName );
    virtual ~cpXmlCmdOutput();
    
-   void Environment( const ::std::string& args, const ::std::string& User, const ::std::string& Host );
-
+   void Context( const ::std::string& args, const ::std::string& User, const ::std::string& Host );
+   
+   /**
+    * create content area of output document
+    */
+   void StartContent();
+   
+   void FinishContent();
+   
    void Notes( const char* msg );
    
    void Status( bool success, time_t start, time_t finish );
